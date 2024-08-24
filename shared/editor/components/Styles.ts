@@ -1199,6 +1199,8 @@ mark {
 
 .code-block {
   position: relative;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .code-block[data-language=mermaidjs] {
