@@ -59,14 +59,14 @@ router.post(
 
     // If the user matches an email address associated with an SSO
     // provider then just forward them directly to that sign-in page
-#    if (user.authentications.length) {
-#      const authenticationProvider =
-#        user.authentications[0].authenticationProvider;
-#      ctx.body = {
-#        redirect: `${team.url}/auth/${authenticationProvider?.name}`,
-#      };
-#      return;
-#    }
+//    if (user.authentications.length) {
+//      const authenticationProvider =
+//        user.authentications[0].authenticationProvider;
+//      ctx.body = {
+//        redirect: `${team.url}/auth/${authenticationProvider?.name}`,
+//      };
+//      return;
+//    }
 
     // send email to users email address with a short-lived token
     await new SigninEmail({
