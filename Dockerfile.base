@@ -4,11 +4,10 @@ FROM node:20-slim AS deps
 ARG APP_PATH
 WORKDIR $APP_PATH
 COPY ./package.json ./yarn.lock ./
-RUN yarn config set registry https://registry.npmmirror.com
 RUN sed -i 's/registry.yarnpkg.com/registry.npmmirror.com/g' ./yarn.lock
 COPY ./patches ./patches
 
-RUN yarn install --no-optional --frozen-lockfile --network-timeout 1000000 --verbose && \
+RUN yarn --registry=https://registry.npmmirror.com install --no-optional --frozen-lockfile --network-timeout 1000000 --verbose && \
   yarn cache clean
 
 COPY . .
@@ -17,7 +16,7 @@ RUN yarn build
 
 RUN rm -rf node_modules
 
-RUN yarn install --production=true --frozen-lockfile --network-timeout 1000000 && \
+RUN yarn --registry=https://registry.npmmirror.com install --production=true --frozen-lockfile --network-timeout 1000000 --verbose && \
   yarn cache clean
 
 ENV PORT=3000
