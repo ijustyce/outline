@@ -7,6 +7,7 @@ COPY ./package.json ./yarn.lock ./
 RUN sed -i 's/registry.yarnpkg.com/registry.npmmirror.com/g' ./yarn.lock
 COPY ./patches ./patches
 
+RUN yarn config set registry https://registry.npmmirror.com
 RUN yarn --registry=https://registry.npmmirror.com install --no-optional --frozen-lockfile --network-timeout 1000000 --verbose && \
   yarn cache clean
 
@@ -16,6 +17,8 @@ RUN yarn build
 
 RUN rm -rf node_modules
 
+RUN sed -i 's/registry.yarnpkg.com/registry.npmmirror.com/g' ./yarn.lock
+RUN yarn config set registry https://registry.npmmirror.com
 RUN yarn --registry=https://registry.npmmirror.com install --production=true --frozen-lockfile --network-timeout 1000000 --verbose && \
   yarn cache clean
 
